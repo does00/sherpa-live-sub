@@ -1,0 +1,5 @@
+sherpa-onnx>=1.10
+PySide6>=6.6
+soundcard>=0.4
+numpy
+sounddevice>=0.4

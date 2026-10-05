@@ -1,0 +1,16 @@
+# 模型文件（运行时自动下载，体积大不进仓库）
+models/
+*.tar.bz2
+*.part
+# 用户本地数据
+subtitles/
+settings.json
+debug.log
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+dist/
+build/
+*.egg-info/

@@ -1,0 +1,37 @@
+name: 构建 Windows 版
+
+on:
+  push:
+    tags: ["v*"]        # 打 tag 如 v1.0.0 时自动构建并发布到 Release
+  workflow_dispatch:    # 也可在网页上手动触发
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: 安装依赖
+        run: python -m pip install -r requirements.txt pyinstaller
+
+      - name: 打包 exe
+        run: pyinstaller sherpa-live-sub.spec
+
+      - name: 上传构建产物
+        uses: actions/upload-artifact@v4
+        with:
+          name: 实时字幕-windows
+          path: dist/实时字幕.exe
+
+      - name: 发布到 Release（仅 tag 推送）
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/实时字幕.exe
+          body: |
+            Windows 桌面版实时字幕。
+            首次运行会自动下载识别模型（约190MB），之后离线可用。
