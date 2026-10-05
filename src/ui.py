@@ -14,6 +14,7 @@ from PySide6.QtWidgets import (
 )
 
 from . import audio as audio_mod
+from . import __version__
 from .engine import StreamEngine
 from .models import MODELS, ensure_models, models_ready
 
@@ -108,7 +109,7 @@ class MainWindow(QMainWindow):
 
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("实时字幕")
+        self.setWindowTitle(f"实时字幕 v{__version__}")
         self.resize(640, 480)
 
         self._engine: StreamEngine | None = None
